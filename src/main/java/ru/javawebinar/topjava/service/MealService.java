@@ -1,4 +1,4 @@
-﻿package ru.javawebinar.topjava.service;
+package ru.javawebinar.topjava.service;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
