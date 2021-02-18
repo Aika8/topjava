@@ -1,34 +1,20 @@
 package ru.javawebinar.topjava.web;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import ru.javawebinar.topjava.AuthorizedUser;
-
-import static java.util.Objects.requireNonNull;
+import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
 public class SecurityUtil {
 
-    private SecurityUtil() {
-    }
-
-    public static AuthorizedUser safeGet() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null) {
-            return null;
-        }
-        Object principal = auth.getPrincipal();
-        return (principal instanceof AuthorizedUser) ? (AuthorizedUser) principal : null;
-    }
-
-    public static AuthorizedUser get() {
-        return requireNonNull(safeGet(), "No authorized user found");
-    }
+    private static int id = 1;
 
     public static int authUserId() {
-        return get().getUserTo().id();
+        return id;
+    }
+
+    public static void setAuthUserId(int id) {
+        SecurityUtil.id = id;
     }
 
     public static int authUserCaloriesPerDay() {
-        return get().getUserTo().getCaloriesPerDay();
+        return DEFAULT_CALORIES_PER_DAY;
     }
 }
