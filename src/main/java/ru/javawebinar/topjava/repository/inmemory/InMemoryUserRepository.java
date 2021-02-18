@@ -16,11 +16,7 @@ import java.util.stream.Collectors;
 public class InMemoryUserRepository implements UserRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepository.class);
 
-    @Override
-    public boolean delete(int id) {
-    log.info("delete {}", id);
-        return true;
-    }
+
    public static final int USER_ID = 1;
     public static final int ADMIN_ID = 2;
     private final Map<Integer, User> usersMap = new ConcurrentHashMap<>();
@@ -39,6 +35,11 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
 
+    @Override
+    public boolean delete(int id) {
+        log.info("delete {}", id);
+        return usersMap.remove(id) != null;
+    }
 
     @Override
     public User get(int id) {
