@@ -12,9 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MealsUtil {
-
-    private MealsUtil() {
-    }
+    public static final int DEFAULT_CALORIES_PER_DAY = 2000;
 
     public static List<MealTo> getTos(Collection<Meal> meals, int caloriesPerDay) {
         return filterByPredicate(meals, caloriesPerDay, meal -> true);
@@ -37,7 +35,7 @@ public class MealsUtil {
                 .collect(Collectors.toList());
     }
 
-    public static MealTo createTo(Meal meal, boolean excess) {
+    private static MealTo createTo(Meal meal, boolean excess) {
         return new MealTo(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
     }
 }
