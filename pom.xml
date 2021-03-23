@@ -39,6 +39,7 @@
         <ehcache.version>3.9.2</ehcache.version>
     </properties>
 
+
     <build>
         <finalName>topjava</finalName>
         <defaultGoal>package</defaultGoal>

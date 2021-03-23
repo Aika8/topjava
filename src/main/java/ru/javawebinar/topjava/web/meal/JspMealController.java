@@ -21,13 +21,13 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 public class JspMealController extends AbstractMealController{
 
     @GetMapping("/meals")
-    public String getUsers(Model model) {
+    public String getMeals(Model model) {
         model.addAttribute("meals", getAll());
         return "meals";
     }
 
     @PostMapping("/meals")
-    public String setUser(HttpServletRequest request) {
+    public String setMeal(HttpServletRequest request) {
         Meal meal = new Meal(
                 LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
@@ -37,7 +37,7 @@ public class JspMealController extends AbstractMealController{
         } else {
             create(meal);
         }
-        return "redirect:meals";
+        return "redirect:/meals";
     }
 
     @GetMapping("/meals/filter")
@@ -65,10 +65,10 @@ public class JspMealController extends AbstractMealController{
         return "mealForm";
     }
 
-    @PostMapping("/meals/delete")
+    @GetMapping("/meals/delete")
     public String deleteMeal(HttpServletRequest request) {
         delete(Integer.parseInt(request.getParameter("id")));
-        return "redirect:meals";
+        return "redirect:/meals";
     }
 
 }
