@@ -1,8 +1,9 @@
 package ru.javawebinar.topjava.service.datajpa;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
+import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.AbstractUserServiceTest;
@@ -10,19 +11,20 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import static ru.javawebinar.topjava.Profiles.DATAJPA;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
-import static ru.javawebinar.topjava.UserTestData.USER_WITH_MEALS_MATCHER;
+import static ru.javawebinar.topjava.UserTestData.USER_MATCHER;
 
 @ActiveProfiles(DATAJPA)
-class DataJpaUserServiceTest extends AbstractUserServiceTest {
+public class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
-    void getWithMeals() {
+    public void getWithMeals() {
         User admin = service.getWithMeals(ADMIN_ID);
-        USER_WITH_MEALS_MATCHER.assertMatch(admin, UserTestData.admin);
+        USER_MATCHER.assertMatch(admin, UserTestData.admin);
+        MealTestData.MEAL_MATCHER.assertMatch(admin.getMeals(), MealTestData.adminMeal2, MealTestData.adminMeal1);
     }
 
     @Test
-    void getWithMealsNotFound() {
-        Assertions.assertThrows(NotFoundException.class,
+    public void getWithMealsNotFound() {
+        Assert.assertThrows(NotFoundException.class,
                 () -> service.getWithMeals(1));
     }
 }
