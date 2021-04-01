@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
-import ru.javawebinar.topjava.to.UserTo;
-import ru.javawebinar.topjava.util.UserUtil;
 
 import java.util.List;
 
@@ -29,12 +27,6 @@ public abstract class AbstractUserController {
         return service.get(id);
     }
 
-    public void create(UserTo userTo) {
-        log.info("create {}", userTo);
-        checkNew(userTo);
-        service.create(UserUtil.createNewFromTo(userTo));
-    }
-
     public User create(User user) {
         log.info("create {}", user);
         checkNew(user);
@@ -52,12 +44,6 @@ public abstract class AbstractUserController {
         service.update(user);
     }
 
-    public void update(UserTo userTo, int id) {
-        log.info("update {} with id={}", userTo, id);
-        assureIdConsistent(userTo, id);
-        service.update(userTo);
-    }
-
     public User getByMail(String email) {
         log.info("getByEmail {}", email);
         return service.getByEmail(email);
@@ -66,10 +52,5 @@ public abstract class AbstractUserController {
     public User getWithMeals(int id) {
         log.info("getWithMeals {}", id);
         return service.getWithMeals(id);
-    }
-
-    public void enable(int id, boolean enabled) {
-        log.info(enabled ? "enable {}" : "disable {}", id);
-        service.enable(id, enabled);
     }
 }
