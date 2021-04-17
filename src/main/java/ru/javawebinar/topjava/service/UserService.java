@@ -70,14 +70,6 @@ public class UserService implements UserDetailsService {
         repository.save(updatedUser);   // !! need only for JDBC implementation
     }
 
-    @CacheEvict(value = "users", allEntries = true)
-    @Transactional
-    public void enable(int id, boolean enabled) {
-        User user = get(id);
-        user.setEnabled(enabled);
-        repository.save(user);  // !! need only for JDBC implementation
-    }
-
     @Override
     public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.getByEmail(email.toLowerCase());
